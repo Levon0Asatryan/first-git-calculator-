@@ -74,11 +74,11 @@ document.getElementById("btns").addEventListener("click", function (event) {
         res.innerHTML += actions_type;
       }
       break;
-    case "DEL":
+    /*case "DEL":
       {
         res.innerHTML = res.innerHTML.substring(0, res.innerHTML.length - 1);
       }
-      break;
+      break;*/
   }
 });
 
