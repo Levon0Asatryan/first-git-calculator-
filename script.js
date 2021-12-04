@@ -1,9 +1,7 @@
 const res = document.getElementById("res");
-let operation = "";
-let num1 = "";
-let num2 = "";
-let num3 = "";
-let bool = false;
+let canType = true;
+let num = "";
+let numsAndOperations = [];
 document.getElementById("btns").addEventListener("click", function (event) {
   let actions_type = event.target.innerText;
   switch (actions_type) {
@@ -18,17 +16,18 @@ document.getElementById("btns").addEventListener("click", function (event) {
     case "8":
     case "9":
       {
-        res.innerHTML += actions_type;
+        if (canType) {
+          num += actions_type;
+          res.innerHTML += actions_type;
+        }
       }
       break;
     case "C":
       {
         res.innerHTML = "";
-        operation = "";
-        num1 = "";
-        num2 = "";
-        num3 = "";
-        bool = false;
+        num = "";
+        numsAndOperations = [];
+        canType = true;
       }
       break;
     case "+":
@@ -36,37 +35,17 @@ document.getElementById("btns").addEventListener("click", function (event) {
     case "*":
     case "/":
       {
-        if (!num1 || bool) {
-          operation = actions_type;
-          num1 = res.innerText;
-          res.innerHTML += actions_type;
-        } else {
-          num1 =
-            "" +
-            setResult(
-              num1,
-              res.innerText.slice(
-                res.innerText.indexOf(actions_type),
-                res.innerText.length
-              ),
-              operation
-            );
-          res.innerHTML += actions_type;
-          operation = actions_type;
-        }
+        numsAndOperations.push(num);
+        num = "";
+        numsAndOperations.push(actions_type);
+        res.innerHTML += actions_type;
       }
       break;
     case "=":
       {
-        if (operation) {
-          num2 = res.innerText.slice(res.innerText.indexOf(actions_type));
-          console.log(num1);
-          console.log(num2);
-          console.log(operation);
-          res.innerText = setResult(num1, num2, operation);
-          num1 = setResult(num1, num2, operation);
-          bool = true;
-        }
+        numsAndOperations.push(num);
+        res.innerHTML = getresalt(numsAndOperations);
+        console.log(numsAndOperations);
       }
       break;
     case ".":
@@ -82,7 +61,37 @@ document.getElementById("btns").addEventListener("click", function (event) {
   }
 });
 
-function setResult(num1, num2, operation) {
+function getresalt(arr) {
+  arr = [...whileOperation("*", "/", arr)];
+  arr = [...whileOperation("+", "-", arr)];
+
+  return arr[0];
+}
+
+function whileOperation(op1, op2, arr) {
+  while (arr.includes(op1) || arr.includes(op2)) {
+    let operation = arr.includes(op1) ? op1 : op2;
+    let opIndex = arr.indexOf(operation);
+    let value = setValue(arr[opIndex - 1], arr[opIndex + 1], operation);
+
+    if (operationError(arr[opIndex - 1]) || operationError(arr[opIndex + 1])) {
+      canType = false;
+      return ["operation error"];
+    }
+
+    arr.splice(opIndex - 1, 3, value);
+  }
+
+  return arr;
+}
+
+function operationError(num) {
+  if (isNaN(Number(num)) || num === "") {
+    return true;
+  }
+}
+
+function setValue(num1, num2, operation) {
   num1 = parseFloat(num1, 10);
   num2 = parseFloat(num2, 10);
   switch (operation) {
