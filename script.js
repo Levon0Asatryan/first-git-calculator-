@@ -1,4 +1,5 @@
 const res = document.getElementById("res");
+let canType = true;
 let num = "";
 let numsAndOperations = [];
 document.getElementById("btns").addEventListener("click", function (event) {
@@ -15,8 +16,10 @@ document.getElementById("btns").addEventListener("click", function (event) {
     case "8":
     case "9":
       {
-        num += actions_type;
-        res.innerHTML += actions_type;
+        if (canType) {
+          num += actions_type;
+          res.innerHTML += actions_type;
+        }
       }
       break;
     case "C":
@@ -24,6 +27,7 @@ document.getElementById("btns").addEventListener("click", function (event) {
         res.innerHTML = "";
         num = "";
         numsAndOperations = [];
+        canType = true;
       }
       break;
     case "+":
@@ -40,6 +44,7 @@ document.getElementById("btns").addEventListener("click", function (event) {
     case "=":
       {
         numsAndOperations.push(num);
+        res.innerHTML = getresalt(numsAndOperations);
         console.log(numsAndOperations);
       }
       break;
@@ -68,7 +73,37 @@ document.getElementById("btns").addEventListener("click", function (event) {
   }
 });
 
-/*function setResult(num1, num2, operation) {
+function getresalt(arr) {
+  arr = [...whileOperation("*", "/", arr)];
+  arr = [...whileOperation("+", "-", arr)];
+
+  return arr[0];
+}
+
+function whileOperation(op1, op2, arr) {
+  while (arr.includes(op1) || arr.includes(op2)) {
+    let operation = arr.includes(op1) ? op1 : op2;
+    let opIndex = arr.indexOf(operation);
+    let value = setValue(arr[opIndex - 1], arr[opIndex + 1], operation);
+
+    if (operationError(arr[opIndex - 1]) || operationError(arr[opIndex + 1])) {
+      canType = false;
+      return ["operation error"];
+    }
+
+    arr.splice(opIndex - 1, 3, value);
+  }
+
+  return arr;
+}
+
+function operationError(num) {
+  if (isNaN(Number(num)) || num === "") {
+    return true;
+  }
+}
+
+function setValue(num1, num2, operation) {
   num1 = parseFloat(num1, 10);
   num2 = parseFloat(num2, 10);
   switch (operation) {
@@ -93,4 +128,4 @@ document.getElementById("btns").addEventListener("click", function (event) {
       }
       break;
   }
-}*/
+}
