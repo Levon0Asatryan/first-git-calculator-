@@ -1,4 +1,4 @@
-const res = document.getElementById("res");
+const res = document.getElementById("value");
 let canType = true;
 let num = "";
 let numsAndOperations = [];
