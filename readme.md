@@ -1,3 +1,3 @@
-# Git and Github first experience
+# First experience , calculator
 
-first work
+It is my first repository , with calculator init
