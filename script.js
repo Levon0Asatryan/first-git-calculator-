@@ -1,4 +1,6 @@
 const res = document.getElementById("value");
+const container = document.getElementById("container");
+const img = document.getElementById("photo");
 let canType = true;
 let isOperationActive = false;
 let num = "";
@@ -140,3 +142,16 @@ function setValue(num1, num2, operation) {
       break;
   }
 }
+
+let rightLeft = true;
+document.getElementById("openBtn").addEventListener("click", function (event) {
+  if (rightLeft) {
+    container.style.width = "520px";
+    img.src = "/assets/left-arrow.png";
+    rightLeft = false;
+  } else {
+    container.style.width = "25.2rem";
+    img.src = "/assets/right-arrows.png";
+    rightLeft = true;
+  }
+});

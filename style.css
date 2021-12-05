@@ -17,9 +17,10 @@
   border-radius: 0.5em;
   padding-top: 2px;
   margin: 0 auto;
-  width: 25rem;
-  height: 36rem;
+  width: 25.2rem;
+  height: 37rem;
   background: #393e3e;
+  transition: width 1s linear 0.1s;
 }
 
 #res {
@@ -32,7 +33,7 @@
 }
 
 #btns button {
-  width: 32%;
+  width: 129px;
   margin: 2px;
   float: left;
   padding: 0;
@@ -67,4 +68,24 @@
 #btnMul,
 #btnDiv {
   color: brown;
+}
+
+.openBtn {
+  border-radius: 1em;
+  border: none;
+  outline: none;
+  background: #434949;
+  color: white;
+  margin-left: 420px;
+  height: 30px;
+  width: 50px;
+}
+
+.openBtn:hover {
+  background: #4e5555;
+}
+
+.photo {
+  height: 30px;
+  width: 30px;
 }
