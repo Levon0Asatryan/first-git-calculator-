@@ -1,5 +1,6 @@
 const res = document.getElementById("value");
 let canType = true;
+let isOperationActive = false;
 let num = "";
 let numsAndOperations = [];
 document.getElementById("btns").addEventListener("click", function (event) {
@@ -19,6 +20,7 @@ document.getElementById("btns").addEventListener("click", function (event) {
         if (canType) {
           num += actions_type;
           res.innerHTML += actions_type;
+          isOperationActive = true;
         }
       }
       break;
@@ -28,6 +30,7 @@ document.getElementById("btns").addEventListener("click", function (event) {
         num = "";
         numsAndOperations = [];
         canType = true;
+        isOperationActive = true;
       }
       break;
     case "+":
@@ -35,27 +38,47 @@ document.getElementById("btns").addEventListener("click", function (event) {
     case "*":
     case "/":
       {
-        numsAndOperations.push(num);
-        num = "";
-        numsAndOperations.push(actions_type);
-        res.innerHTML += actions_type;
-        console.log(numsAndOperations);
+        if (isOperationActive && canType) {
+          if (num !== "") numsAndOperations.push(num);
+          num = "";
+          numsAndOperations.push(actions_type);
+          res.innerHTML += actions_type;
+          isOperationActive = false;
+        }
       }
       break;
     case "=":
       {
         numsAndOperations.push(num);
         res.innerHTML = getresalt(numsAndOperations);
-        console.log(numsAndOperations);
+        numsAndOperations = [];
+        num = res.innerHTML;
       }
       break;
     case ".":
       {
         res.innerHTML += actions_type;
+        num += actions_type;
       }
       break;
     case "DEL":
       {
+        if (numsAndOperations.join("") === res.innerHTML) {
+          if (numsAndOperations[numsAndOperations.length - 1].length === 1) {
+            numsAndOperations.pop();
+          } else {
+            numsAndOperations[numsAndOperations.length - 1] = numsAndOperations[
+              numsAndOperations.length - 1
+            ].slice(
+              0,
+              numsAndOperations[numsAndOperations.length - 1].length - 1
+            );
+          }
+        } else {
+          num = num.slice(0, num.length - 1);
+        }
+        res.innerHTML = res.innerHTML.slice(0, res.innerHTML.length - 1);
+        isOperationActive = true;
       }
       break;
   }
