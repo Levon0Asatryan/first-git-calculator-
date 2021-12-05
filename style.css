@@ -6,6 +6,8 @@
 }
 
 #value {
+  color: #393e3e;
+  font-family: Arial, Helvetica, sans-serif;
   text-align: right;
   height: 100%;
   font-size: 3.5rem;
@@ -42,17 +44,14 @@
   outline: none;
   font-weight: 900;
   border-radius: 0.3em;
+  background: #434949;
 }
 
 #btn {
   color: brown;
 }
 
-button {
-  background: #434949;
-}
-
-button:hover {
+#btns button:hover {
   background: #474d4d;
 }
 
@@ -67,5 +66,5 @@ button:hover {
 #btnPoint,
 #btnMul,
 #btnDiv {
-  color: red;
+  color: brown;
 }
