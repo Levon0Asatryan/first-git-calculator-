@@ -1,5 +1,6 @@
 const res = document.getElementById("value");
 const container = document.getElementById("container");
+const buttons = document.getElementById("btns");
 const img = document.getElementById("photo");
 let canType = true;
 let isOperationActive = false;
@@ -146,7 +147,7 @@ function setValue(num1, num2, operation) {
 let rightLeft = true;
 document.getElementById("openBtn").addEventListener("click", function (event) {
   if (rightLeft) {
-    container.style.width = "520px";
+    container.style.width = "535px";
     img.src = "/assets/left-arrow.png";
     rightLeft = false;
   } else {

@@ -20,7 +20,7 @@
   width: 25.2rem;
   height: 37rem;
   background: #393e3e;
-  transition: width 1s linear 0.1s;
+  transition: width 0.5s linear 0.1s;
 }
 
 #res {
